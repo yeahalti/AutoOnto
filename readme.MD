@@ -28,16 +28,5 @@ Using LLMs and Topic Modelling to generated ontologies
 
 `run.ipynb`: Jupyter notebook version of the above script
 
-- Modify search term in `run.py` or alternatively run `example.py` in `data_collection` according to needs and pick either [topics]([Topics | OpenAlex technical documentation](https://docs.openalex.org/api-entities/topics))/[concepts ]([Concepts | OpenAlex technical documentation](https://docs.openalex.org/api-entities/concepts))as a parameter
-
-## Dependencies
-
-List the dependencies required to run your project.
-
-## Contributing
-
-Explain how others can contribute to your project, including guidelines for pull requests and code formatting.
-
-## License
-
-Include the license under which your project is released.
+- Modify the search term in the following [line](https://github.com/yeahalti/AutoOnto/blob/fb6a304627f99e96498b6bcf53e24ba9b016ee66/run.py#L67) in `run.py` or alternatively, modify and run `example.py` in `data_collection`. 
+- Set work_parameter as either [topics](https://docs.openalex.org/api-entities/topics) or [concepts](https://docs.openalex.org/api-entities/concepts). Note: While the `concepts` feature has been deprecated, this repository utilizes it as it was implemented when the feature was still active.
