@@ -28,7 +28,7 @@ Using LLMs and Topic Modelling to generated ontologies
 
 `run.ipynb`: Jupyter notebook version of the above script
 
-- Modify search term in `run.py` or alternatively run `example.py` in `data_collection` according to needs and pick either [topics]([Topics | OpenAlex technical documentation](https://docs.openalex.org/api-entities/topics))/[concepts ]([Concepts | OpenAlex technical documentation](https://docs.openalex.org/api-entities/concepts))as a parameter
+- Modify search term in `run.py` or alternatively run `example.py` in `data_collection` according to needs and pick either ([topics](https://docs.openalex.org/api-entities/topics))/([Concepts](https://docs.openalex.org/api-entities/concepts))as a parameter
 
 ## Dependencies
 
