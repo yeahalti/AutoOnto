@@ -22,7 +22,7 @@ class OntologyGen():
     def extract_concepts(self, data):
         temp = list(data['topic_first_word'].unique())
 
-        print("Number of concepts before LLM refinement: ", temp)
+        print("Number of concepts before LLM refinement: ", len(temp))
 
         role = "You are an ontology engineer, tasked with helping build an ontology for technology monitoring in the research area of Natural Language Processing"
         prompt = "Given a list of topics, remove topics that do not belong to the Natural Language Processing domain:\n"
@@ -33,7 +33,7 @@ class OntologyGen():
             # Split the string into a list
             concepts1 = concepts1.split(", ")
         
-        print("Number of concepts after LLM refinement: ", concepts1)
+        print("Number of concepts after LLM refinement: ", len(concepts1))
 
         concept_request = requests.get("https://api.openalex.org/concepts?search=natural language processing").json()
         # res = concept_request['results']
@@ -41,7 +41,7 @@ class OntologyGen():
         
         
         concepts2 = [entry["display_name"] for entry in concept_request['results'][0].get('related_concepts', [])]
-        print("Number of concepts related to domain as per OpenAlexDatabase: ", concepts2)
+        print("Number of concepts related to domain as per OpenAlexDatabase: ", len(concepts2))
         taxonomy_topics = list(set(concepts1 + concepts2))
         taxonomy_topics_df = pd.DataFrame({'topics': taxonomy_topics})
 
@@ -114,7 +114,7 @@ class OntologyGen():
         else:
             return data
         
-    def reorganize_taxonomy(taxonomy):
+    def reorganize_taxonomy(self, taxonomy):
         new_taxonomy = {
             'Natural Language Processing': {'superTopicOf': {}},
             'Artificial Intelligence': {},
@@ -175,7 +175,7 @@ class OntologyGen():
 
             '''
         json_data = self.utils.prompt_gpt(role, prompt, with_ex = False)
-        filename = "model/taxonomy.json"
+        filename = "output/taxonomy.json"
 
         with open(filename, 'w') as f: 
             json.dump(json_data, f)

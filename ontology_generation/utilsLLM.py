@@ -103,10 +103,14 @@ class utilsLLM():
                 ddata = ast.literal_eval(python_dict_str)
                 if isinstance(ddata, (list, dict)):
                     return ddata
+                elif isinstance(ddata, set):
+                    return list(ddata)
                 else:
-                    raise ValueError("The extracted content is not a list or dictionary.")
+                    print("The extracted content is not a list or dictionary. It is: ", type(ddata))
+                    return dictd
             except (SyntaxError, ValueError) as e:
-                raise ValueError(f"Error evaluating Python dictionary: {e}")
+                print(f"Error evaluating Python dictionary: {e}")
+                return dictd
         else:
             return dictd
 

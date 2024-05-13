@@ -138,7 +138,7 @@ print("Running model...")
 df = run_model("data/", messages, 5)
 print("Model run completed.")
 
-df = pd.read_csv("model/subsample.csv")
+df = pd.read_csv("output/subsample.csv")
 
 print("Initializing OntologyGen...")
 ontogen = OntologyGen(model_name="gpt-4-1106-preview", deployment_name="gpt_chat_test_preview")
@@ -286,7 +286,7 @@ except Exception as e:
     print("Error occurred during serialization:", e)
 
 # Assuming 'data' is the provided data dictionary
-graph.serialize(destination=f'model/taxonomy.ttl' , format="turtle")
+graph.serialize(destination=f'output/taxonomy.ttl' , format="turtle")
 
 # Evaluation
 file_path = "data/CSO.3.3.ttl"
@@ -307,7 +307,7 @@ cso_list = ontogen.prompt_extract(role, prompt)
 
 concept_uri = "http://fraunhofer.de/example/Natural_Language_Processing"
 graph = Graph()
-graph.parse("taxonomy.ttl", format="ttl")  # Load your RDF data
+graph.parse("output/taxonomy.ttl", format="ttl")  # Load your RDF data
 
 descendants = Evaluation.get_descendants(concept_uri, graph)
 concepts_onto = Evaluation.clean_concept_names(descendants)
@@ -315,8 +315,9 @@ concepts_onto = Evaluation.clean_concept_names(descendants)
 print("Number of concepts in CSO: ", len(cso_list))
 print("Number of concepts in OntoNLP: ", len(concepts_onto))
 
-cso_list_processed = Evaluation.preprocess_list(cso_list)
-concepts_onto_processed = Evaluation.preprocess_list(concepts_onto)
+evalinst = Evaluation()
+cso_list_processed = evalinst.preprocess_list(cso_list)
+concepts_onto_processed = evalinst.preprocess_list(concepts_onto)
 
 # Load a pre-trained SentenceTransformer model
 whaleloops_model = SentenceTransformer("whaleloops/phrase-bert")
@@ -331,12 +332,19 @@ phrase_embeddings2 = whaleloops_model.encode(concepts_onto_processed)
 metrics2 = Evaluation.calculate_metrics(phrase_embeddings2, reference_embedding)
 
 # Create a DataFrame to store the metrics
-data = {
-    "List": ["CSO", "OntoNLP"],
-    "Number of Terms": [len(cso_list_processed), len(concepts_onto_processed)],
-    **metrics1,
-    **metrics2
-}
+# Create a list of dictionaries to store the metrics
+data = [
+    {
+        "List": "CSO",
+        "Number of Terms": len(cso_list_processed),
+        **metrics1
+    },
+    {
+        "List": "OntoNLP",
+        "Number of Terms": len(concepts_onto_processed),
+        **metrics2
+    }
+]
 
 comparison = pd.DataFrame(data)
 
