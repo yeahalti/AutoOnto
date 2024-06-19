@@ -45,3 +45,8 @@ This example fetches data related to "natural language processing" topics from t
 - `clean_text`: Cleans the input text by converting to lowercase, removing non-alphanumeric characters, and extra spaces.
 - `clean_inverted_abstract`: Cleans the inverted abstract by converting it to a dictionary and applying operations.
 - `invert_abstract_dict_to_abstract`: Inverts the abstract dictionary to obtain the abstract. 
+
+##### To Do
+
+- Add time filter
+- Handle no search results and exceptions

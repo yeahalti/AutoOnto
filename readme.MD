@@ -30,3 +30,8 @@ Using LLMs and Topic Modelling to generated ontologies
 
 - Modify the search term in the following [line](https://github.com/yeahalti/AutoOnto/blob/fb6a304627f99e96498b6bcf53e24ba9b016ee66/run.py#L67) in `run.py` or alternatively, modify and run `example.py` in `data_collection`. 
 - Set work_parameter as either [topics](https://docs.openalex.org/api-entities/topics) or [concepts](https://docs.openalex.org/api-entities/concepts). Note: While the `concepts` feature has been deprecated, this repository utilizes it as it was implemented when the feature was still active.
+
+## To-do
+  - Add models to determine concepts
+  - Study about topic association
+  
