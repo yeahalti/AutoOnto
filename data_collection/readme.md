@@ -50,3 +50,4 @@ This example fetches data related to "natural language processing" topics from t
 
 - Add time filter
 - Handle no search results and exceptions
+- Columns
